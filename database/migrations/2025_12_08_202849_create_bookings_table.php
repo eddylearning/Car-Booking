@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('car_id')->constrained();
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->string('location');
+            $table->decimal('total_price', 8, 2);
+            $table->enum('status', ['pending', 'approved', 'rejected', 'completed'])->default('pending');
             $table->timestamps();
         });
     }

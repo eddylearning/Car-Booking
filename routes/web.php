@@ -56,7 +56,23 @@ Route::middleware('auth')->group(function () {
         ->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+// Include auth routes directly in web.php instead of external file
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
+
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
+Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
 
 
 /*
@@ -114,11 +130,33 @@ Route::middleware(['auth', 'role:employee'])->group(function () {
     | Employee Bookings
     |--------------------------------------------------------------------------
     */
-    Route::get('/employee/bookings', [EmployeeBookingController::class, 'index'])
-        ->name('employee.bookings.index');
+    // LIST BOOKINGS
+Route::get('/employee/bookings', [EmployeeBookingController::class, 'index'])
+    ->name('employee.bookings.index');
 
-    Route::get('/employee/bookings/{id}', [EmployeeBookingController::class, 'show'])
-        ->name('employee.bookings.show');
+// SHOW CREATE FORM
+Route::get('/employee/bookings/create', [EmployeeBookingController::class, 'create'])
+    ->name('employee.bookings.create');
+
+// STORE NEW BOOKING
+Route::post('/employee/bookings', [EmployeeBookingController::class, 'store'])
+    ->name('employee.bookings.store');
+
+// SHOW BOOKING DETAILS
+Route::get('/employee/bookings/{id}', [EmployeeBookingController::class, 'show'])
+    ->name('employee.bookings.show');
+
+// SHOW EDIT FORM
+Route::get('/employee/bookings/{id}/edit', [EmployeeBookingController::class, 'edit'])
+    ->name('employee.bookings.edit');
+
+// UPDATE BOOKING
+Route::put('/employee/bookings/{id}', [EmployeeBookingController::class, 'update'])
+    ->name('employee.bookings.update');
+
+// DELETE BOOKING
+Route::delete('/employee/bookings/{id}', [EmployeeBookingController::class, 'destroy'])
+    ->name('employee.bookings.destroy');
 
     /*
     |--------------------------------------------------------------------------
