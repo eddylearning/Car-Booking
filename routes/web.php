@@ -1,31 +1,31 @@
 <?php
 
+use App\Services\MpesaService;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 
 // Admin Controllers
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CarController as AdminCarController;
-use App\Http\Controllers\Admin\BookingController as AdminBookingController;
-use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
-use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\User\UserCarController;
+use App\Http\Controllers\Employee\MpesaController;
 
 // Employee Controllers
+use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Employee\MessageController;
 use App\Http\Controllers\Employee\EmployeeController;
-use App\Http\Controllers\Employee\BookingController as EmployeeBookingController;
-use App\Http\Controllers\Employee\PaymentController as EmployeePaymentController;
-use App\Http\Controllers\Employee\MpesaController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Employee\MpesaCallbackController;
-use App\Http\Controllers\Employee\MessageController as EmployeeMessageController;
 
 // User Controllers
-use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\User\UserCarController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\User\BookingController as UserBookingController;
 use App\Http\Controllers\User\MessageController as UserMessageController;
 
-use App\Services\MpesaService;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,10 +57,11 @@ Route::middleware('auth')->group(function () {
 });
 
 // Include auth routes directly in web.php instead of external file
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
+use App\Http\Controllers\Employee\BookingController as EmployeeBookingController;
+use App\Http\Controllers\Employee\MessageController as EmployeeMessageController;
+use App\Http\Controllers\Employee\PaymentController as EmployeePaymentController;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -158,6 +159,16 @@ Route::put('/employee/bookings/{id}', [EmployeeBookingController::class, 'update
 Route::delete('/employee/bookings/{id}', [EmployeeBookingController::class, 'destroy'])
     ->name('employee.bookings.destroy');
 
+//BOOKING MESSAGE
+Route::post('/employee/messages/{booking}/confirm', 
+    [EmployeeMessageController::class, 'confirmAvailability']
+)->name('employee.messages.confirm');
+
+Route::post('/employee/messages/stk', 
+    [EmployeeMessageController::class, 'sendStkPush']
+)->name('employee.messages.stk');
+
+
     /*
     |--------------------------------------------------------------------------
     | Employee Payments (Includes MPESA Test)
@@ -189,7 +200,21 @@ Route::delete('/employee/bookings/{id}', [EmployeeBookingController::class, 'des
     | Employee Messages
     |--------------------------------------------------------------------------
     */
-    Route::resource('/employee/messages', EmployeeMessageController::class);
+Route::prefix('employee')
+    ->name('employee.')
+    ->group(function () {
+        Route::resource('messages', EmployeeMessageController::class);
+    });
+
+    //BOOKING MESSAGE
+Route::post('/employee/messages/{booking}/confirm', 
+    [EmployeeMessageController::class, 'confirmAvailability']
+)->name('employee.messages.confirm');
+
+Route::post('/employee/messages/stk', 
+    [EmployeeMessageController::class, 'sendStkPush']
+)->name('employee.messages.stk');
+
 });
 
 
