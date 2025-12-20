@@ -10,7 +10,7 @@
     <nav>
         <ul>
             <!-- Public Links -->
-            <li><a href="{{ route('home') }}">Home</a></li>
+            <li><a href="{{ route('home') }}">Dashboard</a></li>
 
             <!-- Guest Links -->
             @guest

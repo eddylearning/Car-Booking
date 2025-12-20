@@ -1,5 +1,4 @@
-@extends('layouts.employee')
-
+@extends('employee.layouts.employee')
 @section('content')
 <h1>Payments</h1>
 

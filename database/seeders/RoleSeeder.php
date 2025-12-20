@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Carbon;
+
 
 class RoleSeeder extends Seeder
 {
@@ -21,6 +23,7 @@ class RoleSeeder extends Seeder
         ], [
             'name' => 'Admin User',
             'password' => bcrypt('password'),
+            'email_verified_at' => Carbon::now(),
         ]);
         $adminUser->assignRole('admin');
 
@@ -30,6 +33,7 @@ class RoleSeeder extends Seeder
         ], [
             'name' => 'Employee User',
             'password' => bcrypt('password'),
+            'email_verified_at' => Carbon::now(),
         ]);
         $employeeUser->assignRole('employee');
 
@@ -39,6 +43,7 @@ class RoleSeeder extends Seeder
         ], [
             'name' => 'Normal User',
             'password' => bcrypt('password'),
+             'email_verified_at' => Carbon::now(),
         ]);
         $normalUser->assignRole('user');
     }
