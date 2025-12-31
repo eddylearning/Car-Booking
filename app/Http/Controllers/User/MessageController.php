@@ -62,4 +62,40 @@ class MessageController extends Controller
 
         return back()->with('success', 'Message sent.');
     }
+
+    public function confirmYes(Booking $booking)
+{
+    $this->authorize('update', $booking);
+
+    $booking->update([
+        'status' => 'confirmed',
+    ]);
+
+    // Optional: create system message
+    Message::create([
+        'booking_id' => $booking->id,
+        'sender_role' => 'user',
+        'content' => 'User confirmed booking (YES)',
+    ]);
+
+    return redirect()->back()->with('success', 'Booking confirmed.');
+}
+
+public function confirmNo(Booking $booking)
+{
+    $this->authorize('update', $booking);
+
+    $booking->update([
+        'status' => 'rejected',
+    ]);
+
+    Message::create([
+        'booking_id' => $booking->id,
+        'sender_role' => 'user',
+        'content' => 'User rejected booking (NO)',
+    ]);
+
+    return redirect()->back()->with('info', 'Booking rejected.');
+}
+
 }

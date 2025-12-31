@@ -82,35 +82,38 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('p
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])
+->prefix('admin')
+->name('admin.')
+->group(function () {
 
     // Admin Dashboard
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
-        ->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])
+        ->name('dashboard');
 
     // Cars CRUD
-    Route::resource('/admin/cars', AdminCarController::class);
+    Route::resource('cars', AdminCarController::class);
 
     // Bookings
-    Route::get('/admin/bookings', [AdminBookingController::class, 'index'])
-        ->name('admin.bookings.index');
+    Route::get('bookings', [AdminBookingController::class, 'index'])
+        ->name('bookings.index');
 
     // Payments
-    Route::get('/admin/payments', [AdminPaymentController::class, 'index'])
-        ->name('admin.payments.index');
+    Route::get('payments', [AdminPaymentController::class, 'index'])
+        ->name('payments.index');
 
     // Messages
-    Route::resource('/admin/messages', AdminMessageController::class);
+    Route::resource('messages', AdminMessageController::class);
 
     // Reports (PDF)
-    Route::get('/admin/reports/bookings', [ReportController::class, 'bookings'])
-        ->name('admin.reports.bookings');
+    Route::get('reports/bookings', [ReportController::class, 'bookings'])
+        ->name('reports.bookings');
 
-    Route::get('/admin/reports/payments', [ReportController::class, 'payments'])
-        ->name('admin.reports.payments');
+    Route::get('reports/payments', [ReportController::class, 'payments'])
+        ->name('reports.payments');
 
-    Route::get('/admin/reports/revenue', [ReportController::class, 'revenue'])
-        ->name('admin.reports.revenue');
+    Route::get('reports/revenue', [ReportController::class, 'revenue'])
+        ->name('reports.revenue');
 });
 
 
@@ -120,11 +123,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:employee'])->group(function () {
+Route::middleware(['auth', 'role:employee'])
+->prefix('employee')
+->name('employee.')
+->group(function () {
 
     // Employee Dashboard
-    Route::get('/employee/dashboard', [EmployeeController::class, 'dashboard'])
-        ->name('employee.dashboard');
+    Route::get('/dashboard', [EmployeeController::class, 'dashboard'])
+        ->name('dashboard');
 
     /*
     |--------------------------------------------------------------------------
@@ -132,41 +138,41 @@ Route::middleware(['auth', 'role:employee'])->group(function () {
     |--------------------------------------------------------------------------
     */
     // LIST BOOKINGS
-Route::get('/employee/bookings', [EmployeeBookingController::class, 'index'])
-    ->name('employee.bookings.index');
+Route::get('bookings', [EmployeeBookingController::class, 'index'])
+    ->name('bookings.index');
 
 // SHOW CREATE FORM
-Route::get('/employee/bookings/create', [EmployeeBookingController::class, 'create'])
-    ->name('employee.bookings.create');
+Route::get('bookings/create', [EmployeeBookingController::class, 'create'])
+    ->name('bookings.create');
 
 // STORE NEW BOOKING
-Route::post('/employee/bookings', [EmployeeBookingController::class, 'store'])
-    ->name('employee.bookings.store');
+Route::post('bookings', [EmployeeBookingController::class, 'store'])
+    ->name('bookings.store');
 
 // SHOW BOOKING DETAILS
-Route::get('/employee/bookings/{id}', [EmployeeBookingController::class, 'show'])
-    ->name('employee.bookings.show');
+Route::get('bookings/{id}', [EmployeeBookingController::class, 'show'])
+    ->name('bookings.show');
 
 // SHOW EDIT FORM
-Route::get('/employee/bookings/{id}/edit', [EmployeeBookingController::class, 'edit'])
-    ->name('employee.bookings.edit');
+Route::get('bookings/{id}/edit', [EmployeeBookingController::class, 'edit'])
+    ->name('bookings.edit');
 
 // UPDATE BOOKING
-Route::put('/employee/bookings/{id}', [EmployeeBookingController::class, 'update'])
-    ->name('employee.bookings.update');
+Route::put('bookings/{id}', [EmployeeBookingController::class, 'update'])
+    ->name('bookings.update');
 
 // DELETE BOOKING
-Route::delete('/employee/bookings/{id}', [EmployeeBookingController::class, 'destroy'])
-    ->name('employee.bookings.destroy');
+Route::delete('bookings/{id}', [EmployeeBookingController::class, 'destroy'])
+    ->name('bookings.destroy');
 
 //BOOKING MESSAGE
-Route::post('/employee/messages/{booking}/confirm', 
+Route::post('messages/{booking}/confirm', 
     [EmployeeMessageController::class, 'confirmAvailability']
-)->name('employee.messages.confirm');
+)->name('messages.confirm');
 
-Route::post('/employee/messages/stk', 
+Route::post('messages/stk', 
     [EmployeeMessageController::class, 'sendStkPush']
-)->name('employee.messages.stk');
+)->name('messages.stk');
 
 
     /*
@@ -179,19 +185,19 @@ Route::post('/employee/messages/stk',
 
         // All payments
         Route::get('/', [EmployeePaymentController::class, 'index'])
-            ->name('employee.payments.index');
+            ->name('payments.index');
 
         // Trigger payment for booking
         Route::post('/pay/{booking}', [EmployeePaymentController::class, 'pay'])
-            ->name('employee.payments.pay');
+            ->name('payments.pay');
 
         // Show Test STK Page
         Route::get('/test', [MpesaController::class, 'showTestPage'])
-            ->name('employee.payments.test');
+            ->name('payments.test');
 
         // Trigger Test STK Push
         Route::post('/test/stk', [MpesaController::class, 'testStkPush'])
-            ->name('employee.payments.test.stk');
+            ->name('payments.test.stk');
 
     });
 
@@ -206,14 +212,16 @@ Route::prefix('employee')
         Route::resource('messages', EmployeeMessageController::class);
     });
 
-    //BOOKING MESSAGE
-Route::post('/employee/messages/{booking}/confirm', 
-    [EmployeeMessageController::class, 'confirmAvailability']
-)->name('employee.messages.confirm');
+  
 
-Route::post('/employee/messages/stk', 
+    //BOOKING MESSAGE
+//   Route::post('messages/{booking}/confirm', 
+//     [EmployeeMessageController::class, 'confirmAvailability']
+// )->name('messages.confirm');
+
+Route::post('messages/stk', 
     [EmployeeMessageController::class, 'sendStkPush']
-)->name('employee.messages.stk');
+)->name('messages.stk');
 
 });
 
@@ -224,29 +232,40 @@ Route::post('/employee/messages/stk',
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'role:user'])
+->prefix('user')
+->name('user.')
+->group(function () {
 
     // User Dashboard
-    Route::get('/user/dashboard', [UserController::class, 'dashboard'])
-        ->name('user.dashboard');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])
+        ->name('dashboard');
 
     // Cars list
-    Route::get('/user/cars', [UserCarController::class, 'index'])
-        ->name('user.cars.index');
+    Route::get('cars', [UserCarController::class, 'index'])
+        ->name('cars.index');
 
     // Booking creation
-    Route::get('/user/bookings/create/{car}', [UserBookingController::class, 'create'])
-        ->name('user.bookings.create');
+    Route::get('bookings/create/{car}', [UserBookingController::class, 'create'])
+        ->name('bookings.create');
 
-    Route::post('/user/bookings/store', [UserBookingController::class, 'store'])
-        ->name('user.bookings.store');
+    Route::post('bookings/store', [UserBookingController::class, 'store'])
+        ->name('bookings.store');
 
     // Booking list
-    Route::get('/user/bookings', [UserBookingController::class, 'index'])
-        ->name('user.bookings.index');
+    Route::get('bookings', [UserBookingController::class, 'index'])
+        ->name('bookings.index');
 
     // Messages
     Route::resource('/user/messages', UserMessageController::class);
+
+     Route::post('messages/{booking}/yes',
+            [UserMessageController::class, 'confirmYes']
+        )->name('messages.yes');
+
+    Route::post('messages/{booking}/no',
+            [UserMessageController::class, 'confirmNo']
+        )->name('messages.no');
 });
 
 

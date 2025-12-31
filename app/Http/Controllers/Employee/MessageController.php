@@ -126,3 +126,63 @@ class MessageController extends Controller
         return back()->with('success', 'STK push sent.');
     }
 }
+
+
+
+// public function store(Request $request)
+// {
+//     $request->validate([
+//         'booking_id' => 'required|exists:bookings,id',
+//         'message'    => 'required|string',
+//     ]);
+
+//     $booking = Booking::findOrFail($request->booking_id);
+//     $messageText = trim($request->message);
+
+//     // Save employee message
+//     $this->sendMessage(
+//         $booking->id,
+//         auth()->id(),
+//         'employee',
+//         $messageText
+//     );
+
+//     $upper = strtoupper($messageText);
+
+//     // USER SAID NO
+//     if ($upper === 'NO') {
+//         $booking->update(['status' => 'cancelled']);
+
+//         $this->createSystemMessage(
+//             $booking->id,
+//             'Booking cancelled by user.'
+//         );
+
+//         return back()->with('info', 'Booking cancelled.');
+//     }
+
+//     // USER SAID YES + phone
+//     if (str_starts_with($upper, 'YES')) {
+//         // Extract phone number using regex
+//         preg_match('/\d{10,12}/', $messageText, $matches);
+//         $phone = $matches[0] ?? null;
+
+//         if (!$phone) {
+//             return back()->with('error', 'Please provide a valid phone number after YES.');
+//         }
+
+//         $booking->update([
+//             'status'       => 'confirmed',
+//             'phone_number' => $phone,
+//         ]);
+
+//         $this->createSystemMessage(
+//             $booking->id,
+//             "Booking confirmed by user. Phone for STK push: $phone"
+//         );
+
+//         return back()->with('success', 'Booking confirmed. You can now send STK push.');
+//     }
+
+//     return back()->with('success', 'Message sent.');
+// }

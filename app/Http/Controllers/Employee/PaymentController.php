@@ -32,7 +32,7 @@ class PaymentController extends Controller
         }
 
         $amount = $booking->total_price; // booking model should have this
-        $phone = $booking->user->phone;
+        $phone = $booking->user->phone; //from the yes reply
 
         $response = $this->mpesa->stkPush($amount, $phone, "Booking-{$booking->id}", "Car Booking Payment");
 

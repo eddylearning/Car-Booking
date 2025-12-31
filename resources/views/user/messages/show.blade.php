@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user.layouts.user')
 
 @section('content')
 <div class="container">
@@ -44,6 +44,28 @@
             @endforelse
         </div>
     </div>
+
+           <!--logic for yes no confirmation-->
+
+    @if($booking->status === 'pending')
+    <div class="mb-4 d-flex gap-3">
+
+        <form method="POST" action="{{ route('user.messages.yes', $booking) }}">
+            @csrf
+            <button type="submit" class="btn btn-success">
+                YES, Confirm Booking
+            </button>
+        </form>
+
+        <form method="POST" action="{{ route('user.messages.no', $booking) }}">
+            @csrf
+            <button type="submit" class="btn btn-danger">
+                NO, Reject Booking
+            </button>
+        </form>
+
+    </div>
+@endif
 
     {{-- Reply Form --}}
     <div class="card">

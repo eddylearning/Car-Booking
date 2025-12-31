@@ -2,27 +2,28 @@
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4">My Booking Messages</h2>
+    <h2 class="mb-4">My Bookings</h2>
 
     @if($bookings->isEmpty())
         <div class="alert alert-info">
-            You have no booking conversations yet.
+            You have no bookings yet.
         </div>
     @else
         <div class="list-group">
             @foreach($bookings as $booking)
-                <a href="{{ route('user.messages.show', $booking->id) }}"
+                <a href="{{ route('user.bookings.show', $booking->id) }}"
                    class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
 
                     <div>
                         <strong>Booking #{{ $booking->id }}</strong><br>
                         <small>
-                            Car: {{ $booking->car->name ?? 'N/A' }}
+                            Car: {{ $booking->car->name ?? 'N/A' }} <br>
+                            Status: {{ ucfirst($booking->status) }}
                         </small>
                     </div>
 
                     <span class="badge bg-primary">
-                        {{ $booking->messages->count() }} messages
+                        ${{ number_format($booking->total_price, 2) }}
                     </span>
                 </a>
             @endforeach

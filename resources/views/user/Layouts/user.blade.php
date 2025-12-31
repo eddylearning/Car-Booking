@@ -52,7 +52,7 @@
     <a href="{{ route('user.dashboard') }}">📊 Dashboard</a>
     <a href="{{ route('user.cars.index') }}">🚗 Browse Cars</a>
     <a href="{{ route('user.bookings.index') }}">📘 My Bookings</a>
-    {{-- <a href="{{ route('user.messages.index') }}">📩 Messages</a> --}}
+    <a href="{{ route('user.messages.index') }}">📩 Messages</a>
 
     <hr style="border-color: #475569">
 
