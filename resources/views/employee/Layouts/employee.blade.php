@@ -58,7 +58,7 @@
 
     <a href="{{ route('employee.bookings.index') }}">📘 Bookings</a>
 
-    <a href="{{ route('employee.messages.index') }}">📩 Messages</a>
+    {{-- <a href="{{ route('employee.messages.index') }}">📩 Messages</a> --}}
 
     <a href="{{ route('employee.payments.index') }}">💳 Payments</a>
 

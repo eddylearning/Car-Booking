@@ -3,6 +3,8 @@
 use App\Services\MpesaService;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\FrontendController;
+
 // Admin Controllers
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserController;
@@ -32,10 +34,10 @@ use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 | Public Routes
 |--------------------------------------------------------------------------
 */
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [FrontendController::class, 'home'])->name('home');
+Route::get('/cars', [FrontendController::class, 'cars'])->name('cars.index');
+Route::get('/about', [FrontendController::class, 'about'])->name('about');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
 
 /*
@@ -100,7 +102,14 @@ Route::middleware(['auth', 'role:admin'])
 
     // Payments
     Route::get('payments', [AdminPaymentController::class, 'index'])
-        ->name('payments.index');
+    ->name('payments.index');
+
+    Route::get('payments/{payment}', [AdminPaymentController::class, 'show'])
+    ->name('payments.show');
+
+    Route::post('payments/{payment}/complete', [AdminPaymentController::class, 'markCompleted'])
+    ->name('payments.complete');
+
 
     // Messages
     Route::resource('messages', AdminMessageController::class);
@@ -211,6 +220,7 @@ Route::prefix('employee')
     ->group(function () {
         Route::resource('messages', EmployeeMessageController::class);
     });
+    
 
   
 
@@ -244,6 +254,9 @@ Route::middleware(['auth', 'role:user'])
     // Cars list
     Route::get('cars', [UserCarController::class, 'index'])
         ->name('cars.index');
+
+    Route::get('cars/{car}', [UserCarController::class, 'show'])
+            ->name('cars.show');
 
     // Booking creation
     Route::get('bookings/create/{car}', [UserBookingController::class, 'create'])

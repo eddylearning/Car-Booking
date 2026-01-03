@@ -1,0 +1,592 @@
+/* --- General Reset & Typography --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none; /* Fix: Removes dots globally, specifically for footer */
+}
+
+/* --- Navbar Styling --- */
+.header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #e74c3c;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Fix: Hamburger Menu (Hidden on Desktop) */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- Hero Section --- */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.search-bar {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 300px;
+    border: none;
+    border-radius: 4px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* --- Section Styling --- */
+.section-padding {
+    padding: 60px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-header h3 {
+    font-size: 2rem;
+    color: #2c3e50;
+}
+
+.divider {
+    width: 60px;
+    height: 3px;
+    background-color: #e74c3c;
+    margin: 10px auto;
+}
+
+/* --- Car Cards (Grid & Styling) --- */
+.car-grid {
+    display: grid;
+    /* Fix: Responsive Grid using minmax */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.car-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.car-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-details {
+    padding: 20px;
+    text-align: center;
+}
+
+.card-details h4 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.price {
+    color: #27ae60;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.btn-book {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.btn-book:hover {
+    background-color: #e74c3c;
+}
+
+/* --- Footer Styling --- */
+.footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 50px 0 20px;
+    margin-top: auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer h4 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer p {
+    font-size: 0.9rem;
+    color: #bdc3c7;
+}
+
+/* Fix: Styling Quick Links specifically */
+.footer-list li {
+    margin-bottom: 10px;
+}
+
+.footer-list a:hover {
+    color: #e74c3c;
+    padding-left: 5px;
+}
+
+/* Fix: Social Icons Styling */
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+    border-radius: 50%;
+    margin-right: 10px;
+    transition: background 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: #e74c3c;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.85rem;
+}
+
+/* --- Contact Form --- */
+.contact-form {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.contact-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* --- Add these updates to your existing frontend.css --- */
+
+/* Fix: About Page Layout */
+.about-wrapper {
+    /* Ensures the section takes up height so footer sits at bottom */
+    min-height: 60vh; 
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content h3 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.8;
+}
+
+
+/* Fix: Contact Page Layout */
+.contact-page-wrapper {
+    padding: 60px 0;
+    min-height: 80vh; /* Ensures footer stays down */
+}
+
+.contact-layout {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+/* Left Side: Info */
+.contact-info {
+    flex: 1;
+    padding-top: 20px;
+}
+
+.contact-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.contact-info > p {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.info-item i {
+    width: 50px;
+    height: 50px;
+    background-color: #f4f4f4;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e74c3c;
+    font-size: 1.2rem;
+    margin-right: 15px;
+}
+
+.info-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.info-item p {
+    color: #777;
+}
+
+/* Right Side: Form */
+.contact-form {
+    /* Flex: 1 makes it take equal space with info */
+    flex: 1; 
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin: 0; /* Reset previous margin */
+    width: 100%;
+}
+
+/* Mobile Responsiveness for Contact Page */
+@media (max-width: 768px) {
+    .contact-layout {
+        flex-direction: column;
+    }
+    
+    .contact-info {
+        text-align: center;
+    }
+
+    .info-item {
+        justify-content: center;
+    }
+
+    .about-wrapper {
+        padding: 40px 0;
+        min-height: 40vh;
+    }
+}
+
+/* --- Add these updates to your existing frontend.css --- */
+
+/* Fix: Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Fix: Dropdown Button */
+.dropbtn {
+    background-color: transparent;
+    color: #333;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropbtn:hover {
+    color: #e74c3c;
+}
+
+/* /* --- Update the .dropdown-content section in your CSS --- */
+
+/* Fix: Dropdown Content (Hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    
+    /* OLD CODE: margin-top: 15px; <-- This caused the gap issue */
+    
+    /* FIX: Use padding-top instead of margin-top */
+    margin-top: 0;
+    padding-top: 15px; /* Keeps the visual spacing but allows hover to work */
+    
+    padding-bottom: 10px; /* Keep existing padding */
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: #333;
+    /* Remove the top padding here so text doesn't float too far down */
+    padding: 10px 16px; 
+    text-decoration: none;
+    display: block;
+    font-size: 0.95rem;
+    transition: background 0.3s;
+}
+
+/* Fix: Logout Button styling inside Dropdown */
+.dropdown-logout-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #e74c3c;
+    padding: 12px 16px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.dropdown-logout-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-logout-btn i {
+    margin-right: 10px;
+}
+
+/* --- Mobile Responsive Fixes for Dropdown --- */
+@media (max-width: 768px) {
+    /* On mobile, we want the dropdown to be a standard list item block */
+    .dropdown-content {
+        position: static;
+        display: none;
+        box-shadow: none;
+        background-color: #f9f9f9;
+        width: 100%;
+        padding-left: 20px;
+        margin-top: 0;
+    }
+
+    /* Show dropdown content when inside the active mobile menu */
+    .nav-links.active .dropdown-content {
+        display: block; /* Or keep hidden until specifically toggled if preferred */
+    }
+    
+    /* Simple hover trigger for desktop won't work well on touch mobile. 
+       Often it's better to just show the items directly or use JS. 
+       For this simple implementation, we will make it always visible inside the hamburger menu on mobile */
+    .nav-links.active .dropdown-content {
+        display: block;
+    }
+}
+
+/* --- RESPONSIVE MEDIA QUERIES (Small Screens) --- */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+
+    /* Fix: Navbar Mobile Styles */
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        display: none; /* Hidden by default on mobile */
+    }
+
+    /* Fix: Show menu when class 'active' is added via JS */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-bar input {
+        width: 100%;
+    }
+}

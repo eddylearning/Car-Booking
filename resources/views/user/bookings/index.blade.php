@@ -23,7 +23,7 @@
                     </div>
 
                     <span class="badge bg-primary">
-                        ${{ number_format($booking->total_price, 2) }}
+                        KES{{ number_format($booking->total_price, 2) }} <!--the 2 adds two decimal places -->
                     </span>
                 </a>
             @endforeach

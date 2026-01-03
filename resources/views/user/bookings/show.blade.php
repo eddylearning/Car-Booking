@@ -8,7 +8,7 @@
         <div class="card-body">
             <p><strong>Car:</strong> {{ $booking->car->name }}</p>
             <p><strong>Status:</strong> {{ ucfirst($booking->status) }}</p>
-            <p><strong>Total Price:</strong> ${{ number_format($booking->total_price, 2) }}</p>
+            <p><strong>Total Price:</strong> KES{{ number_format($booking->total_price, 2) }}</p> <!--the 2 adds two decimal places -->
             <p><strong>Start Date:</strong> {{ $booking->start_date }}</p>
             <p><strong>End Date:</strong> {{ $booking->end_date }}</p>
         </div>
