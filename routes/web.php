@@ -210,30 +210,45 @@ Route::post('messages/stk',
 
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | Employee Messages
-    |--------------------------------------------------------------------------
-    */
-Route::prefix('employee')
-    ->name('employee.')
-    ->group(function () {
-        Route::resource('messages', EmployeeMessageController::class);
-    });
+  /*
+  |--------------------------------------------------------------------------
+  | Employee Messages
+  |--------------------------------------------------------------------------
+ */
+//index (list all conversations)
+Route::get('message', [EmployeeMessageController::class, 'index'])
+ ->name('messages.index');
+
+//show (specific conversations for bookings)
+Route::get('message/{booking}', [EmployeeMessageController::class, 'show'])
+->name('messages.show');
+
+//store (send a reply)
+Route::post('message',[EmployeeMessageController::class, 'store'])
+->name('messages.store');
+
+//Custom actions for availabol and stk
+ Route::post('messages/{booking}/confirm', 
+    [EmployeeMessageController::class, 'confirmAvailability']
+)->name('messages.confirm');
+
+Route::post('messages/stk', [EmployeeMessageController::class, 'sendStkPush'])->name('messages.stk');
+});
+
+//Route::prefix('employee')
+//     ->name('employee.')
+//     ->group(function () {
+//         Route::resource('messages', EmployeeMessageController::class);
+//     });
     
-
-  
-
     //BOOKING MESSAGE
 //   Route::post('messages/{booking}/confirm', 
 //     [EmployeeMessageController::class, 'confirmAvailability']
 // )->name('messages.confirm');
 
-Route::post('messages/stk', 
-    [EmployeeMessageController::class, 'sendStkPush']
-)->name('messages.stk');
+// Route::post('messages/stk', [EmployeeMessageController::class, 'sendStkPush'])->name('messages.stk');
 
-});
+// });
 
 
 /*
