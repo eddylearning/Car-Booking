@@ -56,7 +56,7 @@
 
     <hr style="border-color: #334155">
 
-    <a href="{{ route('cars.index') }}">🚗 Cars</a>
+    <a href="{{ route('admin.cars.index') }}">🚗 Cars</a>
     <a href="{{ route('admin.bookings.index') }}">📘 Bookings</a>
     <a href="{{ route('admin.payments.index') }}">💳 Payments</a>
     <a href="{{ route('admin.messages.index') }}">📩 Messages</a>

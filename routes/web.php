@@ -3,31 +3,31 @@
 use App\Services\MpesaService;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\ProfileController;
 
 // Admin Controllers
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\User\UserCarController;
-use App\Http\Controllers\Employee\MpesaController;
+use App\Http\Controllers\ContactMessageController;
 
 // Employee Controllers
+use App\Http\Controllers\Employee\MpesaController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Employee\MessageController;
 use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Employee\MpesaCallbackController;
 
 // User Controllers
+use App\Http\Controllers\Employee\MpesaCallbackController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\User\BookingController as UserBookingController;
-use App\Http\Controllers\User\MessageController as UserMessageController;
 
-use App\Http\Controllers\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\User\MessageController as UserMessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +37,9 @@ use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 Route::get('/', [FrontendController::class, 'home'])->name('home');
 Route::get('/cars', [FrontendController::class, 'cars'])->name('cars.index');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
-Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
+Route::get('/contact', [ContactMessageController::class, 'contact'])->name('contact');
+// Route::get('/contact', [FrontendController::class, 'contact'])->name('contact.show');
+Route::post('/contact', [ContactMessageController::class, 'contact'])->name('contact.submit');
 
 
 /*
@@ -59,6 +61,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Include auth routes directly in web.php instead of external file
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
 use App\Http\Controllers\Employee\BookingController as EmployeeBookingController;

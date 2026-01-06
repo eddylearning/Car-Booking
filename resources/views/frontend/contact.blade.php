@@ -37,23 +37,28 @@
             </div>
 
             <!-- Right Side: Contact Form -->
-            <div class="contact-form">
-                <form>
-                    <label>Name</label>
-                    <input type="text" placeholder="Your Name" required>
+           <div class="contact-form">
+    <h1>Contact Us</h1>
 
-                    <label>Email</label>
-                    <input type="email" placeholder="Your Email" required>
+    @if(session('success'))
+        <p class="success-message">{{ session('success') }}</p>
+    @endif
 
-                    <label>Message</label>
-                    <textarea rows="5" placeholder="How can we help?" required></textarea>
+    <form action="{{ route('contact.submit') }}" method="POST">
+        @csrf
 
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
 
-        </div>
-    </div>
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Your Message:</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
 </div>
+
 
 @endsection
