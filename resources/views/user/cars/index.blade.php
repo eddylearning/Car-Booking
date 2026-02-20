@@ -20,7 +20,7 @@
                     <div class="card h-100">
 
                         @if($car->image)
-                            <img src="{{ asset('storage/'.$car->image) }}"
+                            <img src="{{ $car->image_url }}"
                                  class="card-img-top"
                                  style="height:200px; object-fit:cover;">
                         @endif

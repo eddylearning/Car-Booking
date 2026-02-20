@@ -15,14 +15,20 @@ return new class extends Migration
     $table->id();
 
     $table->string('name');
+    $table->string('model');
+    $table->string('type');
+    $table->integer('mileage');
+
     $table->text('description')->nullable();
 
     $table->decimal('price_per_day', 10, 2);
+    $table->string('image')->nullable();
 
-    $table->boolean('is_available')->default(true);
+    $table->boolean('available')->default(true);
 
     $table->timestamps();
 });
+
 
     }
 

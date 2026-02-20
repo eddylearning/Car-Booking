@@ -37,7 +37,7 @@
                         <tr>
                             <td>
                                 @if($car->image)
-                                    <img src="{{ asset('storage/'.$car->image) }}"
+                                    <img src="{{ $car->image_url }}"
                                          width="80"
                                          class="rounded">
                                 @else

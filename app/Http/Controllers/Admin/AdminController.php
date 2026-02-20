@@ -20,13 +20,13 @@ class AdminController extends Controller
         $totalUsers = User::count();
         $totalCars = Car::count();
         $totalBookings = Booking::count();
-        $totalPayments = Payment::where('status', 'completed')->sum('amount');
+        $totalRevenue = Payment::where('status', 'completed')->sum('amount');
 
         return view('admin.dashboard', compact(
             'totalUsers',
             'totalCars',
             'totalBookings',
-            'totalPayments'
+            'totalRevenue'
         ));
     }
 }

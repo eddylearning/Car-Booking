@@ -16,9 +16,13 @@ use App\Http\Controllers\ContactMessageController;
 // Employee Controllers
 use App\Http\Controllers\Employee\MpesaController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Employee\MessageController;
 use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 // User Controllers
@@ -39,7 +43,7 @@ Route::get('/cars', [FrontendController::class, 'cars'])->name('cars.index');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/contact', [ContactMessageController::class, 'contact'])->name('contact');
 // Route::get('/contact', [FrontendController::class, 'contact'])->name('contact.show');
-Route::post('/contact', [ContactMessageController::class, 'contact'])->name('contact.submit');
+Route::post('/contact', [ContactMessageController::class, 'submit'])->name('contact.submit');
 
 
 /*
@@ -75,10 +79,26 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('l
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+Route::get('/verify-email', EmailVerificationPromptController::class)
+    ->middleware('auth')
+    ->name('verification.notice');
+
+Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
+    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->name('verification.verify');
+
+Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+    ->middleware(['auth', 'throttle:6,1'])
+    ->name('verification.send');
+
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
 Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
-Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.update');
+Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.store');
+
+Route::put('/password', [PasswordController::class, 'update'])
+    ->middleware('auth')
+    ->name('password.update');
 
 
 /*
@@ -278,10 +298,14 @@ Route::middleware(['auth', 'role:user'])
 
     // Booking creation
     Route::get('bookings/create/{car}', [UserBookingController::class, 'create'])
-        ->name('bookings.create');
+        ->name('bookings.create');    
 
     Route::post('bookings/store', [UserBookingController::class, 'store'])
         ->name('bookings.store');
+
+    //Booking show
+    Route::get('bookings/{booking}', [UserBookingController::class, 'show'])
+        ->name('bookings.show');    
 
     // Booking list
     Route::get('bookings', [UserBookingController::class, 'index'])

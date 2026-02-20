@@ -13,7 +13,7 @@ class UserCarController extends Controller
     public function index()
     {
         $cars = Car::query()
-            ->where('is_available', true)
+            ->where('available', true)
             ->latest()
             ->paginate(9);
 
@@ -25,7 +25,7 @@ class UserCarController extends Controller
      */
     public function show(Car $car)
     {
-        if (!$car->is_available) {
+        if (!$car->available) {
             return redirect()
                 ->route('user.cars.index')
                 ->with('error', 'This car is not available.');

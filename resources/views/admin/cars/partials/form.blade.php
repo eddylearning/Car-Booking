@@ -51,7 +51,7 @@
         <label for="image" class="form-label">Car Image</label>
         @if(isset($car) && $car->image)
             <div class="mb-2">
-                <img src="{{ asset('storage/' . $car->image) }}" width="150" class="rounded">
+                <img src="{{ $car->image_url }}" width="150" class="rounded">
             </div>
         @endif
         <input type="file" name="image" id="image" class="form-control">

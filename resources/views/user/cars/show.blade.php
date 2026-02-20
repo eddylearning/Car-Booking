@@ -7,7 +7,7 @@
         <div class="col-md-6">
 
             @if($car->image)
-                <img src="{{ asset('storage/'.$car->image) }}"
+                <img src="{{ $car->image_url }}"
                      class="img-fluid rounded mb-3">
             @endif
 
@@ -25,7 +25,7 @@
                 KES {{ number_format($car->price_per_day) }} / day
             </p>
 
-            @if($car->is_available)
+            @if($car->available)
                 <a href="{{ route('user.bookings.create', $car) }}"
                    class="btn btn-primary">
                     Book This Car

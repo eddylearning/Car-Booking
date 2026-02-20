@@ -31,8 +31,11 @@ class PaymentController extends Controller
             return back()->with('error', 'Payment already completed.');
         }
 
-        $amount = $booking->total_price; // booking model should have this
-        $phone = $booking->user->phone; //from the yes reply
+        $amount = $booking->total_price;
+        $phone = $booking->user->phone_number;
+        if (empty($phone)) {
+            return back()->with('error', 'User phone number is missing. Capture it before sending STK.');
+        }
 
         $response = $this->mpesa->stkPush($amount, $phone, "Booking-{$booking->id}", "Car Booking Payment");
 

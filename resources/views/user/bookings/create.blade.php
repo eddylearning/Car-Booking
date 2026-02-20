@@ -42,6 +42,16 @@
                    required>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label">Location</label>
+          <input type="text"
+           name="location"
+           class="form-control"
+           value="{{ old('location') }}"
+           required>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">
             Submit Booking Request
         </button>

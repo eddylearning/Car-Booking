@@ -68,7 +68,7 @@ class MessageController extends Controller
 
         // USER SAID NO
         if ($upper === 'NO') {
-            $booking->update(['status' => 'cancelled']);
+            $booking->update(['status' => 'rejected']);
 
             $this->createSystemMessage(
                 $booking->id,
@@ -112,7 +112,7 @@ class MessageController extends Controller
 
         // Trigger STK Push
         $mpesa->stkPush(
-            $booking->id,
+            $booking->total_price,
             $request->phone,
             'Booking #' . $booking->id,
             'Car booking payment'

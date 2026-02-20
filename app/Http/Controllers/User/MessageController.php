@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\HandlesBookingMessages;
 use App\Models\Booking;
+use App\Models\Message;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -64,38 +65,43 @@ class MessageController extends Controller
     }
 
     public function confirmYes(Booking $booking)
-{
-    $this->authorize('update', $booking);
+    {
+        if ((int) $booking->user_id !== (int) auth()->id()) {
+            abort(403);
+        }
 
-    $booking->update([
-        'status' => 'confirmed',
-    ]);
+        $booking->update([
+            'status' => 'approved',
+        ]);
 
-    // Optional: create system message
-    Message::create([
-        'booking_id' => $booking->id,
-        'sender_role' => 'user',
-        'content' => 'User confirmed booking (YES)',
-    ]);
+        Message::create([
+            'booking_id' => $booking->id,
+            'sender_id' => auth()->id(),
+            'sender_role' => 'user',
+            'message' => 'User confirmed booking (YES)',
+        ]);
 
-    return redirect()->back()->with('success', 'Booking confirmed.');
-}
+        return redirect()->back()->with('success', 'Booking confirmed.');
+    }
 
-public function confirmNo(Booking $booking)
-{
-    $this->authorize('update', $booking);
+    public function confirmNo(Booking $booking)
+    {
+        if ((int) $booking->user_id !== (int) auth()->id()) {
+            abort(403);
+        }
 
-    $booking->update([
-        'status' => 'rejected',
-    ]);
+        $booking->update([
+            'status' => 'rejected',
+        ]);
 
-    Message::create([
-        'booking_id' => $booking->id,
-        'sender_role' => 'user',
-        'content' => 'User rejected booking (NO)',
-    ]);
+        Message::create([
+            'booking_id' => $booking->id,
+            'sender_id' => auth()->id(),
+            'sender_role' => 'user',
+            'message' => 'User rejected booking (NO)',
+        ]);
 
-    return redirect()->back()->with('info', 'Booking rejected.');
-}
+        return redirect()->back()->with('info', 'Booking rejected.');
+    }
 
 }

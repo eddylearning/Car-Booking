@@ -37,20 +37,22 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'car_id' => 'required|exists:cars,id',
+            'car_id'     => 'required|exists:cars,id',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date'   => 'required|date|after_or_equal:start_date',
+            'location'   => 'required|string|max:255',
         ]);
 
         $car = Car::findOrFail($request->car_id);
 
         $booking = Booking::create([
-            'user_id' => Auth::id(),
-            'car_id'  => $car->id,
-            'start_date' => $request->start_date,
-            'end_date'   => $request->end_date,
+            'user_id'     => Auth::id(),
+            'car_id'      => $car->id,
+            'start_date'  => $request->start_date,
+            'end_date'    => $request->end_date,
+            'location'    => $request->location,
             'total_price' => $car->price_per_day * ( (strtotime($request->end_date) - strtotime($request->start_date)) / 86400 + 1 ),
-            'status' => 'pending',
+            'status'      => 'pending',
         ]);
 
         return redirect()->route('user.bookings.index')

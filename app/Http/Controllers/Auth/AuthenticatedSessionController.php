@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,6 +30,12 @@ class AuthenticatedSessionController extends Controller
     $request->session()->regenerate();
 
     $user = auth()->user();
+
+    // Backfill legacy accounts that were created before role assignment was enforced.
+    if ($user->roles()->count() === 0 && Role::where('name', 'user')->exists()) {
+        $user->assignRole('user');
+        $user->refresh();
+    }
 
     if ($user->hasRole('admin')) {
         return redirect()->route('admin.dashboard');

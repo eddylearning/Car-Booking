@@ -24,7 +24,7 @@ a {
 }
 
 ul {
-    list-style: none; /* Fix: Removes dots globally, specifically for footer */
+    list-style: none; /* Removes dots globally, specifically for footer */
 }
 
 /* --- Navbar Styling --- */
@@ -233,7 +233,7 @@ ul {
     color: #bdc3c7;
 }
 
-/* Fix: Styling Quick Links specifically */
+/*  Styling Quick Links specifically */
 .footer-list li {
     margin-bottom: 10px;
 }
@@ -342,7 +342,7 @@ ul {
 }
 
 
-/* Fix: Contact Page Layout */
+/*  Contact Page Layout */
 .contact-page-wrapper {
     padding: 60px 0;
     min-height: 80vh; /* Ensures footer stays down */

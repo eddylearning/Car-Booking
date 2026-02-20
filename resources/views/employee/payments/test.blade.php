@@ -8,6 +8,9 @@
         <div class="alert alert-success">{{ session('success') }}</div>
         <pre>{{ print_r(session('mpesa_response'), true) }}</pre>
     @endif
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
 
     <form method="POST" action="{{ route('employee.payments.test.stk') }}">
         @csrf
